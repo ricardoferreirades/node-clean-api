@@ -22,4 +22,25 @@ describe('SignUp controller', function () {
       expect(httpResponse.body).toEqual(new Error('Missing param: name'))
     })
   })
+
+  describe('when no email is provided', () => {
+    const httpRequest = {
+      body: {
+        name: 'some_name',
+        password: 'some_password',
+        passwordConfirmation: 'some_password'
+      }
+    }
+    it('returns an error message', () => {
+      const sut = new SignUpController()
+      const httpResponse = sut.handle(httpRequest)
+      expect(httpResponse.statusCode).toBe(400)
+    })
+
+    it('returns an error message', () => {
+      const sut = new SignUpController()
+      const httpResponse = sut.handle(httpRequest)
+      expect(httpResponse.body).toEqual(new Error('Missing param: email'))
+    })
+  })
 })
